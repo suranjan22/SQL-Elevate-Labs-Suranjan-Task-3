@@ -1,0 +1,46 @@
+-- Task-3 (07-08-2025) 
+-- elevates-lab [SQL-internship day-3] 
+-- Deliverables:SQL script with SELECT, WHERE, ORDER BY, LIMIT
+
+-- 1. Select all customers:
+SELECT * FROM Customer;
+
+-- 2. Select specific columns from the Product table:
+SELECT name, price FROM Product;
+
+-- 3. Find products with a price greater than 100:
+SELECT product_id, name, price FROM Product WHERE price > 100.00;
+
+-- 4. Find customers whose names start with 'J', ordered by their name:
+SELECT customer_id, name FROM Customer WHERE name LIKE 'J%' ORDER BY name;
+
+-- 5. Find all orders placed on or after '2025-08-02', sorted by the total amount in descending order:
+SELECT order_id, order_date, total_amount FROM OrderTable
+WHERE order_date >= '2025-08-02' ORDER BY total_amount DESC;
+
+-- 6. Find the top 2 most expensive products:
+SELECT name, price FROM Product ORDER BY price DESC LIMIT 2;
+
+-- 7. Find the oldest order, limiting the result to just one row:
+SELECT order_id, order_date, total_amount 
+FROM OrderTable ORDER BY order_date ASC LIMIT 1;
+
+-- 8. Find products that are in stock (stock > 0) AND have a price less than 100:
+SELECT name, price, stock FROM Product WHERE stock > 0 AND price < 100.00;
+
+-- 9. Find customers named 'John Doe' OR 'Peter Jones':
+SELECT name, email FROM Customer WHERE name = 'John Doe' OR name = 'Peter Jones';
+
+-- 10. Find the names of products in the 'Electronics' category:
+SELECT P.name
+FROM Product P
+JOIN ProductCategory PC ON P.product_id = PC.product_id
+JOIN Category C ON PC.category_id = C.category_id
+WHERE C.name = 'Electronics';
+
+-- 11. Find the details of the most recent orders (limiting to the top 1), including the customer's name, ordered by date:
+SELECT O.order_id, O.order_date, O.total_amount, C.name AS customer_name
+FROM OrderTable O
+JOIN Customer C ON O.customer_id = C.customer_id
+ORDER BY O.order_date DESC
+LIMIT 1;
